@@ -119,3 +119,6 @@ venv.bak/
 
 
 src/moshpp/scan2mesh/mesh_distance/sample2meshdist.cpp
+support_files
+mosh_results
+data_results

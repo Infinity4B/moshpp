@@ -129,7 +129,7 @@ def load_surface_model(surface_model_fname,
 
     Jreg = dd['J_regressor']
     if not sp.issparse(Jreg):
-        dd['J_regressor'] = (sp.csc_matrix((Jreg.data, (Jreg.row, Jreg.col)), shape=Jreg.shape))
+        dd['J_regressor'] = (sp.csc_matrix(Jreg.data, shape=Jreg.shape))
 
     dd['model_type'] = model_type
     dd['trans'] = ch.zeros(3)
@@ -152,6 +152,8 @@ def load_surface_model(surface_model_fname,
 
     model = Struct()
     for k, v in dd.items():
+        if type(v)==np.ndarray and v.shape==() and type(v.item())==bytes:
+            v=v.item().decode('utf-8')
         model.__setattr__(k, v)
 
     model = SmplModelLBS(pose=ch.zeros(
